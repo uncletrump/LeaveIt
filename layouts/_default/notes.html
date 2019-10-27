@@ -1,0 +1,38 @@
+{{ define "content" }}
+<div class="post-warp">
+    <h2 class="post-title" style="text-align:right;padding-bottom:2em">{{ .Title }}</h2>
+    {{ if or (eq .Title "Notes") (eq .Title "Docs") }}
+        <div class="post-warp archive">
+            {{ range (.Paginate (.Pages.GroupByDate "2006")).PageGroups }}
+            <h3>{{ .Key }}</h3>
+
+                {{ range .Pages }}
+                <article class="archive-item">
+                    <a href="{{ .RelPermalink }}" class="archive-item-link"><h3> <i class="iconfont icon-folder" style="padding-right: 3px"></i> {{ .Title }} </h3></a>
+                    <span class="archive-item-date">
+                        {{ .Date.Format "January 2, 2006" }}
+                    </span>
+                </article>
+                {{ end }}
+            {{ end }}
+            {{ partial "paginator.html" . }}
+        </div>
+    {{ else }}
+        <div class="post-warp archive">
+            {{ range (.Paginate (.Pages.GroupByDate "2006")).PageGroups }}
+            <h3>{{ .Key }}</h3>
+
+                {{ range .Pages }}
+                <article class="archive-item">
+                    <a href="{{ .RelPermalink }}" class="archive-item-link">{{ .Title }}</a>
+                    <span class="archive-item-date">
+                        {{ .Date.Format "January 2, 2006" }}
+                    </span>
+                </article>
+                {{ end }}
+            {{ end }}
+            {{ partial "paginator.html" . }}  
+        </div>
+    {{ end }}
+</div>
+{{ end }}
